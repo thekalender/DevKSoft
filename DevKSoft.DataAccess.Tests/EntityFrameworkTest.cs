@@ -15,5 +15,14 @@ namespace DevKSoft.DataAccess.Tests
             var result = productDal.GelList();
             Assert.AreEqual(80,result.Count);
         }
+
+        [TestMethod]
+        public void Gel_all_parameter_returns_filtered_products()
+        {
+            EfProductDal productDal = new EfProductDal();
+
+            var result = productDal.GelList(p=>p.ProductName.Contains("ab"));
+            Assert.AreEqual(4, result.Count);
+        }
     }
 }
