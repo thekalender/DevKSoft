@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DevKSoft.Core.Aspects.Postsharp;
+using DevKSoft.Core.Aspects.Postsharp.LogAspects;
+using DevKSoft.Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using DevKSoft.Northwind.Business.Abstract;
 using DevKSoft.Northwind.Business.ValidtionRules.FluentValidation;
 using DevKSoft.Northwind.DataAccess.Abstract;
@@ -20,6 +22,8 @@ namespace DevKSoft.Northwind.Business.Concrete.Manager
         {
             _productDal = productDal;
         }
+        [LogAspect(typeof(DatabaseLogger))]
+        [LogAspect(typeof(FileLogger))]
         public List<Product> GetList()
         {
            return _productDal.GelList();
@@ -34,6 +38,13 @@ namespace DevKSoft.Northwind.Business.Concrete.Manager
         public Product Add(Product product)
         {
             return _productDal.Add(product);
+        }
+
+        public void TransactionalOpetaion(Product product1, Product product2)
+        {
+            _productDal.Add(product1);
+
+            _productDal.Update(product2);
         }
     }
 }

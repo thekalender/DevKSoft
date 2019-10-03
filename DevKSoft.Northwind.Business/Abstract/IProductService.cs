@@ -12,5 +12,6 @@ namespace DevKSoft.Northwind.Business.Abstract
         List<Product> GetList();
         Product GetById(int id);
         Product Add(Product product);
+        void TransactionalOpetaion(Product product1, Product product2);
     }
 }
