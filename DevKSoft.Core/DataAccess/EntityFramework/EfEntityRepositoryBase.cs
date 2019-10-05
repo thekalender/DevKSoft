@@ -15,9 +15,9 @@ namespace DevKSoft.Core.DataAccess.EntityFramework
     {
         public List<TEntity> GelList(Expression<Func<TEntity, bool>> filter = null)
         {
-            using (var context= new TContext())
+            using (var context = new TContext())
             {
-                return filter==null
+                return filter == null
                     ? context.Set<TEntity>().ToList()
                     : context.Set<TEntity>().Where(filter).ToList();
             }

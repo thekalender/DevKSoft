@@ -13,3 +13,4 @@ namespace DevKSoft.Core.CrossCuttingConcerns.Logging
         public object Value { get; set; }
     }
 }
+

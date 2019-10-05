@@ -17,7 +17,7 @@ namespace DevKSoft.Core.CrossCuttingConcerns.Logging.Log4Net
             _loggingEvent = loggingEvent;
         }
 
-        public string UserNAme => _loggingEvent.UserName;
-        public object MethodMessage => _loggingEvent.MessageObject;
+        public string UserName => _loggingEvent.UserName;
+        public object MessageObject => _loggingEvent.MessageObject;
     }
 }

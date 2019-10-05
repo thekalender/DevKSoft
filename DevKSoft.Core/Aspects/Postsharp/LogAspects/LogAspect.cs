@@ -12,11 +12,11 @@ using PostSharp.Extensibility;
 namespace DevKSoft.Core.Aspects.Postsharp.LogAspects
 {
     [Serializable]
-    [MulticastAttributeUsage(MulticastTargets.Method,TargetMemberAttributes = MulticastAttributes.Instance)]
-    public class LogAspect:OnMethodBoundaryAspect
+    [MulticastAttributeUsage(MulticastTargets.Method, TargetMemberAttributes = MulticastAttributes.Instance)]
+    public class LogAspect : OnMethodBoundaryAspect
     {
         private Type _loggerType;
-        private LogService _logService;
+        private LogService _loggerService;
 
         public LogAspect(Type loggerType)
         {
@@ -25,21 +25,19 @@ namespace DevKSoft.Core.Aspects.Postsharp.LogAspects
 
         public override void RuntimeInitialize(MethodBase method)
         {
-            if (_loggerType.BaseType!=typeof(LogService))
+            if (_loggerType.BaseType != typeof(LogService))
             {
                 throw new Exception("Wrong logger type");
             }
-
-            _logService = (LogService) Activator.CreateInstance(_loggerType);
+            _loggerService = (LogService)Activator.CreateInstance(_loggerType);
             base.RuntimeInitialize(method);
         }
 
         public override void OnEntry(MethodExecutionArgs args)
         {
-            if (!_logService.InInfoEnable)
+            if (!_loggerService.IsInfoEnabled)
             {
-             return;
-             ;
+                return;
             }
 
             try
@@ -51,19 +49,20 @@ namespace DevKSoft.Core.Aspects.Postsharp.LogAspects
                     Value = args.Arguments.GetArgument(i)
                 }).ToList();
 
-                var logDetail= new LogDetail
+                var logDetail = new LogDetail
                 {
-                    FullName = args.Method.DeclaringType==null?null:args.Method.DeclaringType.Name,
+                    FullName = args.Method.DeclaringType == null ? null : args.Method.DeclaringType.Name,
                     MethodName = args.Method.Name,
                     Parameters = logParameters
                 };
-                _logService.Info(logDetail);
+
+                _loggerService.Info(logDetail);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Console.WriteLine(e);
-                throw;
+
             }
+
         }
     }
 }

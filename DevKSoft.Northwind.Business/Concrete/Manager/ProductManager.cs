@@ -35,6 +35,8 @@ namespace DevKSoft.Northwind.Business.Concrete.Manager
         }
 
         [FluentValidationAspet(typeof(ProductValidator))]
+        [LogAspect(typeof(DatabaseLogger))]
+        [LogAspect(typeof(FileLogger))]
         public Product Add(Product product)
         {
             return _productDal.Add(product);

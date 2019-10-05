@@ -17,47 +17,43 @@ namespace DevKSoft.Core.CrossCuttingConcerns.Logging.Log4Net
             _log = log;
         }
 
-        public bool InInfoEnable => _log.IsInfoEnabled;
-        public bool InDebugEnable => _log.IsDebugEnabled;
-        public bool InWarnEnable => _log.IsWarnEnabled;
-        public bool InFatalEnable => _log.IsFatalEnabled;
-        public bool InErrorEnable => _log.IsErrorEnabled;
+        public bool IsInfoEnabled => _log.IsInfoEnabled;
+        public bool IsDebugEnabled => _log.IsDebugEnabled;
+        public bool IsWarnEnabled => _log.IsWarnEnabled;
+        public bool IsFatalEnabled => _log.IsFatalEnabled;
+        public bool IsErrorEnabled => _log.IsFatalEnabled;
 
         public void Info(object logMessage)
         {
-            if (InInfoEnable)
+            if (IsInfoEnabled)
             {
                 _log.Info(logMessage);
             }
         }
-
         public void Debug(object logMessage)
         {
-            if (InDebugEnable)
+            if (IsDebugEnabled)
             {
                 _log.Debug(logMessage);
             }
         }
-
         public void Warn(object logMessage)
         {
-            if (InWarnEnable)
+            if (IsWarnEnabled)
             {
                 _log.Warn(logMessage);
             }
         }
-
         public void Fatal(object logMessage)
         {
-            if (InFatalEnable)
+            if (IsFatalEnabled)
             {
                 _log.Fatal(logMessage);
             }
         }
-
         public void Error(object logMessage)
         {
-            if (InErrorEnable)
+            if (IsErrorEnabled)
             {
                 _log.Error(logMessage);
             }
